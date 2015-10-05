@@ -28,19 +28,21 @@
 *.app
 
 #VS
-*.suo
-*.vcxproj
-*.filters
-*.opensdf
-*.sdf
-*.sln
-*.suo
+#*.suo
+#*.vcxproj
+#*.filters
+#*.opensdf
+#*.sdf
+#*.sln
+#*.suo
 *.user
 
 #Folders
 bin/
 build/
 proj/x64
+[Dd]ebug/
+[Rr]elease/
 
 #CMake
 proj/CMakeCache.txt
