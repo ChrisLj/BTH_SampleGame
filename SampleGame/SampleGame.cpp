@@ -73,9 +73,8 @@ int main(int argc, char* argv[])
 	while (m_running)	//Le loop
 	{
 		end = std::chrono::high_resolution_clock::now();
-		auto tmpStart = std::chrono::high_resolution_clock::now();
 		duration = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
-		start = tmpStart;
+		start = end;
 		dt = duration * 0.000001f;
 
 		if (dt > 16.6f)
