@@ -1,24 +1,7 @@
-﻿Build started 2015-10-05 21:32:46.
+﻿Build started 2015-10-05 22:20:58.
      1>Project "C:\Users\Chris\Documents\Skola\BTH_SampleGame\SampleGame\SampleGame.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /IC:\Users\Chris\Documents\Skola\BTH_SampleGame\\externals\include /Zi /nologo /W3 /WX- /sdl /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"x64\Debug\SampleGame.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt stdafx.cpp
-         stdafx.cpp
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /IC:\Users\Chris\Documents\Skola\BTH_SampleGame\\externals\include /Zi /nologo /W3 /WX- /sdl /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Debug\SampleGame.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt Camera.cpp Cube.cpp Renderer.cpp SampleGame.cpp Shader.cpp WorldObject.cpp
-         WorldObject.cpp
-         Shader.cpp
-         SampleGame.cpp
-     1>c:\users\chris\documents\skola\bth_samplegame\samplegame\Camera.h(5): warning C4005: 'M_PI' : macro redefinition
-                 c:\users\chris\documents\skola\bth_samplegame\externals\include\sdl\SDL_stdinc.h(350) : see previous definition of 'M_PI'
-         Renderer.cpp
-     1>c:\users\chris\documents\skola\bth_samplegame\samplegame\Camera.h(5): warning C4005: 'M_PI' : macro redefinition
-                 c:\users\chris\documents\skola\bth_samplegame\externals\include\sdl\SDL_stdinc.h(350) : see previous definition of 'M_PI'
-         Cube.cpp
-         Camera.cpp
-     1>Camera.cpp(12): warning C4305: '=' : truncation from 'double' to 'float'
-         GLM: perspective function taking degrees as a parameter is deprecated. #define GLM_FORCE_RADIANS before including GLM headers to remove this message.
-         Generating Code...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Chris\Documents\Skola\BTH_SampleGame\x64\Debug\SampleGame.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\Chris\Documents\Skola\BTH_SampleGame\\externals\lib\x64 SDL2.lib SDL2main.lib glew32.lib glew32s.lib glu32.lib opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Chris\Documents\Skola\BTH_SampleGame\x64\Debug\SampleGame.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Chris\Documents\Skola\BTH_SampleGame\x64\Debug\SampleGame.lib" /MACHINE:X64 x64\Debug\Camera.obj
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Chris\Documents\Skola\BTH_SampleGame\x64\Debug\SampleGame.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\Users\Chris\Documents\Skola\BTH_SampleGame\\externals\lib\x64 SDL2.lib SDL2main.lib glew32.lib glu32.lib opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Chris\Documents\Skola\BTH_SampleGame\x64\Debug\SampleGame.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Chris\Documents\Skola\BTH_SampleGame\x64\Debug\SampleGame.lib" /MACHINE:X64 x64\Debug\Camera.obj
          x64\Debug\Cube.obj
          x64\Debug\Renderer.obj
          x64\Debug\SampleGame.obj
@@ -31,4 +14,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.07
+Time Elapsed 00:00:00.70
