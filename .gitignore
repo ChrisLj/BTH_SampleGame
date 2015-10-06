@@ -45,6 +45,7 @@ x64/
 [Dd]ebug/
 [Rr]elease/
 ipch/
+.vs/
 
 #CMake
 proj/CMakeCache.txt
