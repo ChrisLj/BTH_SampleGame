@@ -36,6 +36,7 @@
 #*.sln
 #*.suo
 *.user
+*.ipch
 
 #Folders
 bin/
