@@ -32,7 +32,7 @@
 #*.vcxproj
 #*.filters
 #*.opensdf
-#*.sdf
+*.sdf
 #*.sln
 #*.suo
 *.user
@@ -40,9 +40,10 @@
 #Folders
 bin/
 build/
-proj/x64
+x64/
 [Dd]ebug/
 [Rr]elease/
+ipch/
 
 #CMake
 proj/CMakeCache.txt
