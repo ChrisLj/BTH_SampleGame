@@ -23,13 +23,27 @@ foreach(f ${SOURCES})
     source_group("${SRCGR}" FILES ${f})
 endforeach()
 
-include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../externals/include")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}/../bin/debug/")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}/../bin/debug/")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}/../bin/release/")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}/../bin/release/")
+
+include_directories(
+	"${CMAKE_CURRENT_SOURCE_DIR}/../externals/include"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../BTH_Memory_Allocator/src/memoryallocator/interface"
+)
 
 link_directories("${CMAKE_CURRENT_SOURCE_DIR}/../externals/lib/x64")
 
 add_executable(BTH_SampleGame ${SOURCES})
 
-target_link_libraries(BTH_SampleGame ${LIBRARIES})
+if(NOT TARGET MemoryAllocator)
+	add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../BTH_Memory_Allocator/src/memoryallocator" MemoryAllocator)
+endif()
+
+target_link_libraries(BTH_SampleGame
+					  ${LIBRARIES}
+					  MemoryAllocator)
 
 add_custom_command(TARGET BTH_SampleGame POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy_directory
