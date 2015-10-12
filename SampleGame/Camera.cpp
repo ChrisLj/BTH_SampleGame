@@ -3,7 +3,7 @@
 
 Camera::Camera(int windowWidth, int windowHeight)
 {
-	m_pos = glm::vec3(0.0, 0.0, 3.0);
+	m_pos = glm::vec3(0.0, 1.0, 3.0);
 	m_up = vec3(0, 1, 0);
 	m_right = vec3(1, 0, 0);
 	m_look = vec3(0, 0, -1.0);
@@ -11,7 +11,7 @@ Camera::Camera(int windowWidth, int windowHeight)
 	m_camPitch = 0.0f;
 	m_camYaw = M_PI;
 	m_sensitivity = 0.002f;
-	m_moveSpeed = 0.01f;
+	m_moveSpeed = 0.015f;
 
 	m_farPlane = 100.f;
 

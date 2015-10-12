@@ -2,7 +2,7 @@
 #include "Cube.h"
 
 
-Cube::Cube(vec3 pos, float scale) : WorldObject(pos, scale)
+Cube::Cube(vec3 pos, float scale, GLuint texture) : WorldObject(pos, scale, texture)
 {
 #pragma region data
 	m_nrOfVertices = 6 * 6;
@@ -187,5 +187,9 @@ void Cube::Draw(mat4* viewMatrix, mat4* projMatrix, Shader* shader)
 	m_MVP = (*projMatrix) * m_modelViewMatrix;
 	shader->SetUniVariable("MVP", mat4x4, &m_MVP);
 
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_texture);
+
+	glBindVertexArray(m_VAO);
 	glDrawArrays(GL_TRIANGLES, 0, m_nrOfVertices);
 }

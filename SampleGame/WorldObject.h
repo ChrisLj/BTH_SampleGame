@@ -10,8 +10,10 @@ using glm::mat4;
 class WorldObject
 {
 public:
-	WorldObject(vec3 pos, float scale);
+	WorldObject(vec3 pos, float scale, GLuint texture);
 	~WorldObject();
+
+	vec3* GetPosition() { return &m_position; }
 
 	virtual void Draw(mat4* viewMatrix, mat4* projMatrix, Shader* shader) = 0;
 
@@ -25,6 +27,8 @@ protected:
 	GLuint m_VAO;
 	GLuint m_buffers[3]; //currently vertex, normal, texCoord
 	unsigned int m_nrOfVertices;
+
+	GLuint m_texture;
 };
 
 #endif

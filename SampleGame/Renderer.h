@@ -8,6 +8,7 @@
 #include <vector>
 #include "WorldObject.h"
 #include "Cube.h"
+#include "Quad.h"
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -43,6 +44,7 @@ public:
 	bool Clean();
 	void CreateShaders();
 	void CreateStuff();
+	void Update(float dt);
 	void Render();
 };
 

@@ -82,6 +82,7 @@ int main(int argc, char* argv[])
 			SDL_Log("dt = %f ms", dt);
 
 		CheckInput(dt);
+		m_renderer.Update(dt);
 		m_renderer.Render();
 	}
 

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Renderer.h"
 
+#define MAX_OBJECTS 50
+
 Renderer::Renderer(Camera* cam)
 {
 	m_camera = cam;
@@ -42,6 +44,9 @@ bool Renderer::Init()
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_TEXTURE_2D);
+
+	srand(time(NULL));
 
 	return true;
 }
@@ -68,11 +73,43 @@ void Renderer::CreateShaders()
 
 void Renderer::CreateStuff()
 {
-	m_objects.push_back(new Cube(glm::vec3(-2.0, -1.5, -5.0), 0.2f));
+	//m_objects.push_back(new Cube(glm::vec3(-2.0, -1.5, -5.0), 0.8f, 0));
+	//m_objects.push_back(new Quad(glm::vec3(2.0, 0.5, -8.0), 0.5f, 0));
 
 	m_standardShader.SetUniVariable("dirlightDirection", vector3, &m_dirLight.direction);
 	m_standardShader.SetUniVariable("dirlightIntensity", vector3, &m_dirLight.intensity);
 	m_standardShader.SetUniVariable("dirlightColor",	 vector3, &m_dirLight.color);
+
+	m_standardShader.CheckUniformLocation("diffuseTex", 0);
+}
+
+void Renderer::Update(float dt)
+{
+	vec3* camPos = m_camera->GetPos();
+	float spawnPointDistance = 20.f;
+	vec3 spawnOrigin = vec3(camPos->x, 0.0, camPos->z) + (*m_camera->GetLook()*spawnPointDistance);
+
+	for (int i = 0; i < m_objects.size(); i++)
+	{
+		if (glm::length(*m_objects[i]->GetPosition() - spawnOrigin) > 29.f) //~root(spawnPointDistance^2 + spawnPointDistance^2)
+		{
+			delete m_objects[i];
+			m_objects.erase(m_objects.begin() + i);
+		}
+	}
+	if (m_objects.size() < MAX_OBJECTS)
+	{
+		int objectsToAdd = MAX_OBJECTS - m_objects.size();
+		
+		for (int i = 0; i < objectsToAdd; i++)
+		{
+			float x = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
+			float z = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
+			m_objects.push_back(new Cube(spawnOrigin+vec3(x, 0.0f, z), (rand() % 50) * 0.01f + 0.2f, 0));
+		}
+	}
+
+
 }
 
 void Renderer::Render()

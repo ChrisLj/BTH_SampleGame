@@ -28,13 +28,13 @@
 *.app
 
 #VS
-#*.suo
-#*.vcxproj
-#*.filters
-#*.opensdf
+*.suo
+*.vcxproj
+*.filters
+*.opensdf
 *.sdf
-#*.sln
-#*.suo
+*.sln
+*.suo
 *.user
 *.ipch
 

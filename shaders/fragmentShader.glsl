@@ -6,7 +6,7 @@ in vec3 ViewPos;
 out vec4 ColorData;
 
 //Input textures
-//uniform sampler2D diffuseTex;
+uniform sampler2D diffuseTex;
 
 uniform mat4 ViewMatrix;
 
@@ -99,7 +99,9 @@ void phongModel(int index, out vec3 ambient, out vec3 diffuse, out vec3 spec) {
 void main() 
 {
 	// Diffuse tex
-	vec4 albedo_tex = vec4(0.8f, 0.8f, 0.8f, 1.0f);//texture( diffuseTex, TexCoord );
+	vec4 albedo_tex = texture( diffuseTex, TexCoord );
+
+		//albedo_tex = vec4(0.8f, 0.8f, 0.8f, 1.0f);
 
 	if(albedo_tex.a == 0.0f)
 		discard;
