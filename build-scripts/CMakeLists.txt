@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 project(BTH_SampleGame)
 
 file(GLOB_RECURSE SOURCES
-	"${CMAKE_CURRENT_SOURCE_DIR}/../SampleGame/*.cpp"
-	"${CMAKE_CURRENT_SOURCE_DIR}/../SampleGame/*.h"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../source/*.cpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../source/*.h"
 )
 
 set(LIBRARIES
