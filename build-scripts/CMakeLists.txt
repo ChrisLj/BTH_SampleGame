@@ -31,6 +31,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}/../bin/r
 include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/../externals/include"
 	"${CMAKE_CURRENT_SOURCE_DIR}/../BTH_Memory_Allocator/src/memoryallocator/interface"
+	"${CMAKE_CURRENT_SOURCE_DIR}/../BTH_Resource_Manager/src/resourcemanager/interface"
 )
 
 link_directories("${CMAKE_CURRENT_SOURCE_DIR}/../externals/lib/x64")
@@ -40,10 +41,14 @@ add_executable(BTH_SampleGame ${SOURCES})
 if(NOT TARGET MemoryAllocator)
 	add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../BTH_Memory_Allocator/src/memoryallocator" MemoryAllocator)
 endif()
+if(NOT TARGET ResourceManager)
+	add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../BTH_Resource_Manager/src/resourcemanager" ResourceManager)
+endif()
 
 target_link_libraries(BTH_SampleGame
 					  ${LIBRARIES}
-					  MemoryAllocator)
+					  MemoryAllocator
+					  ResourceManager)
 
 add_custom_command(TARGET BTH_SampleGame POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy_directory
