@@ -1,9 +1,13 @@
 #include "stdafx.h"
 #include "Renderer.h"
 #include <chrono>
+#include <future>
+
+#include "ResourceManager.h"
+ResourceManager gResourceManager;
 
 SDL_Event m_event;
-Renderer m_renderer;
+//Renderer m_renderer;
 Camera m_camera;
 bool m_running;
 
@@ -60,9 +64,13 @@ void CheckInput(float dt)
 int main(int argc, char* argv[])
 {
 	m_camera = Camera(WINDOW_WIDTH, WINDOW_HEIGHT);
-	m_renderer = Renderer(&m_camera);
+	Renderer m_renderer = Renderer(&m_camera);
 	m_renderer.Init();
 	m_renderer.CreateShaders();
+
+    gResourceManager.StartUp( m_renderer.GetWindow() );
+    SDL_GL_MakeCurrent( m_renderer.GetWindow(), m_renderer.GetContext() );
+
 	m_renderer.CreateStuff(); //Tmp. Some post init-stuff
 
 	m_running = true;
@@ -85,6 +93,8 @@ int main(int argc, char* argv[])
 		m_renderer.Update(dt);
 		m_renderer.Render();
 	}
+
+    gResourceManager.ShutDown();
 
 	m_renderer.Clean();
 	return 0;

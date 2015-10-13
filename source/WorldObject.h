@@ -2,6 +2,7 @@
 #define WORLDOBJECT_H
 #include "stdafx.h"
 #include "Shader.h"
+#include <future>
 
 using glm::vec3;
 using glm::mat3;
@@ -10,12 +11,15 @@ using glm::mat4;
 class WorldObject
 {
 public:
-	WorldObject(vec3 pos, float scale, GLuint texture);
+	WorldObject(vec3 pos, float scale, const char* textureFilepath);
 	~WorldObject();
 
 	vec3* GetPosition() { return &m_position; }
 
 	virtual void Draw(mat4* viewMatrix, mat4* projMatrix, Shader* shader) = 0;
+
+    void UpdateTexture();
+    const GLuint GetTexture() const;
 
 protected:
 	vec3 m_position;
@@ -29,6 +33,7 @@ protected:
 	unsigned int m_nrOfVertices;
 
 	GLuint m_texture;
+    std::future<GLuint> m_futureTexture;
 };
 
 #endif

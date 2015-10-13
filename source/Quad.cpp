@@ -2,7 +2,7 @@
 #include "Quad.h"
 
 
-Quad::Quad(vec3 pos, float scale, GLuint texture) : WorldObject(pos, scale, texture)
+Quad::Quad(vec3 pos, float scale, const char* textureFilepath ) : WorldObject(pos, scale, textureFilepath)
 {
 #pragma region data
 	m_nrOfVertices = 6;

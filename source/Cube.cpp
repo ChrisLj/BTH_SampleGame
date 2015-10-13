@@ -2,7 +2,7 @@
 #include "Cube.h"
 
 
-Cube::Cube(vec3 pos, float scale, GLuint texture) : WorldObject(pos, scale, texture)
+Cube::Cube(vec3 pos, float scale, const char* textureFilepath ) : WorldObject(pos, scale, textureFilepath)
 {
 #pragma region data
 	m_nrOfVertices = 6 * 6;

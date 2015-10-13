@@ -3,6 +3,8 @@
 
 #define MAX_OBJECTS 50
 
+extern ResourceManager gResourceManager;
+
 Renderer::Renderer(Camera* cam)
 {
 	m_camera = cam;
@@ -25,6 +27,9 @@ bool Renderer::Init()
 		WINDOW_HEIGHT,                               // height, in pixels
 		SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE       // flags - see below
 		);
+
+    // Share context
+    SDL_GL_SetAttribute( SDL_GL_SHARE_WITH_CURRENT_CONTEXT, 1 );
 
 	if (m_window == NULL)
 	{
@@ -89,14 +94,18 @@ void Renderer::Update(float dt)
 	float spawnPointDistance = 20.f;
 	vec3 spawnOrigin = vec3(camPos->x, 0.0, camPos->z) + (*m_camera->GetLook()*spawnPointDistance);
 
-	for (int i = 0; i < m_objects.size(); i++)
-	{
-		if (glm::length(*m_objects[i]->GetPosition() - spawnOrigin) > 29.f) //~root(spawnPointDistance^2 + spawnPointDistance^2)
-		{
-			delete m_objects[i];
-			m_objects.erase(m_objects.begin() + i);
-		}
-	}
+    for ( int i = m_objects.size() - 1; i >= 0; i-- )
+    {
+        if ( m_objects[ i ]->GetTexture() == 0 )
+            m_objects[ i ]->UpdateTexture();
+
+        if ( glm::length( *m_objects[ i ]->GetPosition() - spawnOrigin ) > 29.f ) //~root(spawnPointDistance^2 + spawnPointDistance^2)
+        {
+            mTexturesToBeDeleted.push_back( gResourceManager.DeleteTexture( m_objects[ i ]->GetTexture() ) );
+            delete m_objects[ i ];
+            m_objects.erase( m_objects.begin() + i );
+        }
+    }
 	if (m_objects.size() < MAX_OBJECTS)
 	{
 		int objectsToAdd = MAX_OBJECTS - m_objects.size();
@@ -105,11 +114,18 @@ void Renderer::Update(float dt)
 		{
 			float x = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
 			float z = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
-			m_objects.push_back(new Cube(spawnOrigin+vec3(x, 0.0f, z), (rand() % 50) * 0.01f + 0.2f, 0));
+			m_objects.push_back(new Cube(spawnOrigin+vec3(x, 0.0f, z), (rand() % 50) * 0.01f + 0.2f, "../assets/pettson.png" ));
 		}
 	}
 
-
+    for ( int i = mTexturesToBeDeleted.size() - 1; i >= 0; --i )
+    {
+        if ( mTexturesToBeDeleted[ i ]._Is_ready() )
+        {
+            mTexturesToBeDeleted[ i ].get();
+            mTexturesToBeDeleted.erase( mTexturesToBeDeleted.begin() + i );
+        }
+    }
 }
 
 void Renderer::Render()
@@ -126,4 +142,14 @@ void Renderer::Render()
 	}
 
 	SDL_GL_SwapWindow(m_window);
+}
+
+SDL_Window* Renderer::GetWindow()
+{
+    return m_window;
+}
+
+SDL_GLContext Renderer::GetContext()
+{
+    return m_glcontext;
 }

@@ -9,6 +9,7 @@
 #include "WorldObject.h"
 #include "Cube.h"
 #include "Quad.h"
+#include "ResourceManager.h"
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -25,6 +26,18 @@ struct DirectionalLight
 		: direction(dir), intensity(intens), color(col){}
 };
 
+struct TextureHandle
+{
+    std::future<GLuint> future;
+    int index;
+
+    TextureHandle( size_t index, std::future<GLuint> future )
+    {
+        this->index = index;
+        this->future = std::move(future);
+    }
+};
+
 class Renderer
 {
 private:
@@ -34,6 +47,7 @@ private:
 	Camera* m_camera;
 	std::vector<WorldObject*> m_objects; //custom allocator here?
 	DirectionalLight m_dirLight;
+    std::vector<std::future<void>> mTexturesToBeDeleted;
 
 public:
 	Renderer(){};
@@ -46,6 +60,9 @@ public:
 	void CreateStuff();
 	void Update(float dt);
 	void Render();
+
+    SDL_Window* GetWindow();
+    SDL_GLContext GetContext();
 };
 
 #endif
