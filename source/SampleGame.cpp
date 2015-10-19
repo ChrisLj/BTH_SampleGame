@@ -85,21 +85,9 @@ int main(int argc, char* argv[])
 	ZZIP_DIR* dir = zzip_dir_open("../assets/dip.zip", 0);
 	if (dir) {
 		ZZIP_DIRENT dirent;
-		if (zzip_dir_read(dir, &dirent))
+		while (zzip_dir_read(dir, &dirent))
 		{
-			/* show info for first file */
-			printf("%s %i/%i", dirent.d_name, dirent.d_csize, dirent.st_size);
-		}
-		ZZIP_FILE* fp = zzip_file_open(dir, "hej.txt", 0);
-		if (fp) {
-			char buf[10];
-			zzip_ssize_t len = zzip_file_read(fp, buf, 10);
-			if (len) {
-				/* show head of README */
-				write(1, buf, len);
-			}
-			zzip_file_close(fp);
-			zzip_dir_close(dir);
+			printf("%s %i/%i\n", dirent.d_name, dirent.d_csize, dirent.st_size);
 		}
 	}
 	/* END OF ANDERS TEMP SHIT*/
