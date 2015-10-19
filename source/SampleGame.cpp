@@ -3,6 +3,8 @@
 #include <chrono>
 #include <future>
 
+#include <zzip/zzip.h>
+
 #include "ResourceManager.h"
 ResourceManager gResourceManager;
 
@@ -79,6 +81,18 @@ int main(int argc, char* argv[])
 	long long duration;
 	float dt; //milliseconds
 	
+	/* ANDERS TEMP SHIT */
+	ZZIP_DIR* dir = zzip_dir_open("../assets/dip.zip", 0);
+	if (dir) {
+		ZZIP_DIRENT dirent;
+		if (zzip_dir_read(dir, &dirent))
+		{
+			/* show info for first file */
+			printf("%s %i/%i", dirent.d_name, dirent.d_csize, dirent.st_size);
+		}
+	}
+	/* END OF ANDERS TEMP SHIT*/
+
 	while (m_running)	//Le loop
 	{
 		end = std::chrono::high_resolution_clock::now();
