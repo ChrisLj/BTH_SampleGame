@@ -41,7 +41,7 @@
 #Folders
 bin/
 build/
-x64/
+#x64/
 [Dd]ebug/
 [Rr]elease/
 ipch/
