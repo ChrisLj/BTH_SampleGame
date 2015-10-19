@@ -90,6 +90,17 @@ int main(int argc, char* argv[])
 			/* show info for first file */
 			printf("%s %i/%i", dirent.d_name, dirent.d_csize, dirent.st_size);
 		}
+		ZZIP_FILE* fp = zzip_file_open(dir, "hej.txt", 0);
+		if (fp) {
+			char buf[10];
+			zzip_ssize_t len = zzip_file_read(fp, buf, 10);
+			if (len) {
+				/* show head of README */
+				write(1, buf, len);
+			}
+			zzip_file_close(fp);
+			zzip_dir_close(dir);
+		}
 	}
 	/* END OF ANDERS TEMP SHIT*/
 
