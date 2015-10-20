@@ -60,8 +60,9 @@ bool Renderer::Init()
 bool Renderer::Clean()
 {
 	for (int i = 0; i < m_objects.size(); i++)
-		delete m_objects[i];
+		pDelete(m_objectsHandle, m_objects[i]);
 
+	ShutdownPoolAllocator(m_objectsHandle);
 	SDL_DestroyWindow(m_window);
 	SDL_GL_DeleteContext(m_glcontext);
 	// Clean up
