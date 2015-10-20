@@ -52,6 +52,7 @@ bool Renderer::Init()
 	glEnable(GL_TEXTURE_2D);
 
 	srand(time(NULL));
+	m_objectsHandle = InitializePoolAllocator(sizeof(WorldObject), MAX_OBJECTS, POOL_ALLOCATOR_DEFAULT_ALIGNMENT);
 
 	return true;
 }
@@ -102,7 +103,7 @@ void Renderer::Update(float dt)
         if ( glm::length( *m_objects[ i ]->GetPosition() - spawnOrigin ) > 29.f ) //~root(spawnPointDistance^2 + spawnPointDistance^2)
         {
             mTexturesToBeDeleted.push_back( gResourceManager.DeleteTexture( m_objects[ i ]->GetTexture() ) );
-            delete m_objects[ i ];
+            pDelete(m_objectsHandle, m_objects[ i ]);
             m_objects.erase( m_objects.begin() + i );
         }
     }
@@ -114,7 +115,8 @@ void Renderer::Update(float dt)
 		{
 			float x = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
 			float z = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
-			m_objects.push_back(new Cube(spawnOrigin+vec3(x, 0.0f, z), (rand() % 50) * 0.01f + 0.2f, "../assets/pettson.png" ));
+			//WorldObject *tmpObj;
+			m_objects.push_back(pNew(m_objectsHandle, Quad, (spawnOrigin + vec3(x, 0.0f, z)), ((rand() % 50) * 0.01f + 0.2f), "../assets/pettson.png"));
 		}
 	}
 
