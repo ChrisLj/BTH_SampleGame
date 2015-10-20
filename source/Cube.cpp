@@ -7,7 +7,7 @@ Cube::Cube(vec3 pos, float scale, const char* textureFilepath ) : WorldObject(po
 #pragma region data
 	m_nrOfVertices = 6 * 6;
 
-	float vertices[] = {
+	const float vertices[] = {
 		// Front face
 		-1.0f, 1.0f, 1.0f,
 		-1.0f, -1.0f, 1.0f,
@@ -166,7 +166,7 @@ Cube::Cube(vec3 pos, float scale, const char* textureFilepath ) : WorldObject(po
 	glEnableVertexAttribArray(1);
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_buffers[2]);
-	glBufferData(GL_ARRAY_BUFFER, m_nrOfVertices*2 * sizeof(GLfloat), &texCoords, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, m_nrOfVertices*2 * sizeof(GLfloat), texCoords, GL_STATIC_DRAW);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(2);
 }

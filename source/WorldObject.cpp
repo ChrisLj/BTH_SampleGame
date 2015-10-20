@@ -10,8 +10,10 @@ WorldObject::WorldObject(vec3 pos, float scale, const char* textureFilepath )
 	m_scale = scale;
 	m_texture = 0;
 	m_modelMatrix = mat4(1.0f);
-	m_modelMatrix = glm::translate(pos);
+	m_modelMatrix = glm::translate(m_modelMatrix, pos);
+	m_modelMatrix = glm::rotate(m_modelMatrix, 0.0f, vec3(0.0f, 1.0f, 0.0f));
 	m_modelMatrix = glm::scale(m_modelMatrix, vec3(m_scale, m_scale, m_scale));
+	
     m_futureTexture = gResourceManager.LoadTexture( textureFilepath );
 
 	/*if (m_texture == 0)

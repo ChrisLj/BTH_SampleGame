@@ -15,7 +15,7 @@ uniform mat4 MVP;
 void main()
 {
 	Normal = normalize( NormalMatrix * VertexNormal);
-	TexCoord = VertexTexCoord;
+	TexCoord = vec2(VertexTexCoord.x, 1.0-VertexTexCoord.y);
 	ViewPos = (ModelViewMatrix * vec4(VertexPosition, 1.0)).xyz;
 	//mat4 MVP = ViewProjectionMatrix * ModelMatrix;
 	gl_Position = MVP * vec4(VertexPosition, 1.0);

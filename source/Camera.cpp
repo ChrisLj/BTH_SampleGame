@@ -3,10 +3,10 @@
 
 Camera::Camera(int windowWidth, int windowHeight)
 {
-	m_pos = glm::vec3(0.0, 1.0, 3.0);
-	m_up = vec3(0, 1, 0);
-	m_right = vec3(1, 0, 0);
-	m_look = vec3(0, 0, -1.0);
+	m_pos = glm::vec3(0.f, 1.f, 3.f);
+	m_up = vec3(0.f, 1.f, 0.f);
+	m_right = vec3(1.f, 0.f, 0.f);
+	m_look = vec3(0.f, 0.f, -1.0f);
 
 	m_camPitch = 0.0f;
 	m_camYaw = M_PI;
