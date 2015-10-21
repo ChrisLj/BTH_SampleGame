@@ -2,7 +2,7 @@
 #include "Renderer.h"
 #include "PoolAllocatorInterface.h"
 
-#define MAX_OBJECTS 50
+#define MAX_OBJECTS 200
 
 extern ResourceManager gResourceManager;
 
@@ -81,9 +81,6 @@ void Renderer::CreateShaders()
 
 void Renderer::CreateStuff()
 {
-	//m_objects.push_back(new Cube(glm::vec3(-2.0, -1.5, -5.0), 0.8f, 0));
-	//m_objects.push_back(new Quad(glm::vec3(2.0, 0.5, -8.0), 0.5f, 0));
-
 	m_standardShader.SetUniVariable("dirlightDirection", vector3, &m_dirLight.direction);
 	m_standardShader.SetUniVariable("dirlightIntensity", vector3, &m_dirLight.intensity);
 	m_standardShader.SetUniVariable("dirlightColor",	 vector3, &m_dirLight.color);
@@ -91,10 +88,12 @@ void Renderer::CreateStuff()
 	m_standardShader.CheckUniformLocation("diffuseTex", 0);
 }
 
+float spawnPointDistance = 30.f;
+float squareRadius = std::sqrt(spawnPointDistance*spawnPointDistance + spawnPointDistance*spawnPointDistance);
+
 void Renderer::Update(float dt)
 {
 	vec3* camPos = m_camera->GetPos();
-	float spawnPointDistance = 20.f;
 	vec3 spawnOrigin = vec3(camPos->x, 0.0, camPos->z) + (*m_camera->GetLook()*spawnPointDistance);
 
     for ( int i = m_objects.size() - 1; i >= 0; i-- )
@@ -102,7 +101,7 @@ void Renderer::Update(float dt)
         if ( m_objects[ i ]->GetTexture() == 0 )
             m_objects[ i ]->UpdateTexture();
 
-        if ( glm::length( *m_objects[ i ]->GetPosition() - spawnOrigin ) > 29.f ) //~root(spawnPointDistance^2 + spawnPointDistance^2)
+        if ( glm::length( *m_objects[ i ]->GetPosition() - spawnOrigin ) > squareRadius) //~root(spawnPointDistance^2 + spawnPointDistance^2)
         {
             mTexturesToBeDeleted.push_back( gResourceManager.DeleteTexture( m_objects[ i ]->GetTexture() ) );
             pDelete(m_objectsHandle, m_objects[ i ]);
@@ -117,8 +116,7 @@ void Renderer::Update(float dt)
 		{
 			float x = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
 			float z = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
-			//WorldObject *tmpObj;
-			m_objects.push_back(pNew(m_objectsHandle, Quad, (spawnOrigin + vec3(x, 0.0f, z)), ((rand() % 50) * 0.01f + 0.2f), "../assets/pettson.png"));
+			m_objects.push_back(pNew(m_objectsHandle, Cube, (spawnOrigin + vec3(x, 0.0f, z)), ((rand() % 50) * 0.01f + 0.2f), "../assets/pettson.png"));
 		}
 	}
 
