@@ -10,7 +10,6 @@
 #include "Cube.h"
 #include "Quad.h"
 #include "ResourceManager.h"
-#include "PoolAllocatorInterface.h"
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -46,7 +45,7 @@ private:
 	SDL_GLContext m_glcontext;
 	Shader m_standardShader;
 	Camera* m_camera;
-	PoolAllocatorHandle m_objectsHandle;
+	char m_objectsHandle;
 	std::vector<WorldObject*> m_objects; //custom allocator here?
 	DirectionalLight m_dirLight;
     std::vector<std::future<void>> mTexturesToBeDeleted;

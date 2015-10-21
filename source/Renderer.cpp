@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Renderer.h"
+#include "PoolAllocatorInterface.h"
 
 #define MAX_OBJECTS 50
 
