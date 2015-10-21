@@ -2,7 +2,7 @@
 #include "Renderer.h"
 #include "PoolAllocatorInterface.h"
 
-#define MAX_OBJECTS 200
+#define MAX_OBJECTS 50
 
 extern ResourceManager gResourceManager;
 
@@ -53,7 +53,7 @@ bool Renderer::Init()
 	glEnable(GL_TEXTURE_2D);
 
 	srand(time(NULL));
-	m_objectsHandle = InitializePoolAllocator(sizeof(WorldObject), MAX_OBJECTS, POOL_ALLOCATOR_DEFAULT_ALIGNMENT);
+	m_objectsHandle = InitializePoolAllocator(sizeof(AssetObject), MAX_OBJECTS, POOL_ALLOCATOR_DEFAULT_ALIGNMENT);
 
 	return true;
 }
@@ -116,7 +116,7 @@ void Renderer::Update(float dt)
 		{
 			float x = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
 			float z = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
-			m_objects.push_back(pNew(m_objectsHandle, Cube, (spawnOrigin + vec3(x, 0.0f, z)), ((rand() % 50) * 0.01f + 0.2f), "../assets/pettson.png"));
+			m_objects.push_back(pNew(m_objectsHandle, AssetObject, (spawnOrigin + vec3(x, 0.0f, z)), ((rand() % 50) * 0.01f + 0.2f), "../assets/pettson.png"));
 		}
 	}
 

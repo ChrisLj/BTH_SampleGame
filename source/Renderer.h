@@ -9,6 +9,7 @@
 #include "WorldObject.h"
 #include "Cube.h"
 #include "Quad.h"
+#include "AssetObject.h"
 #include "ResourceManager.h"
 
 #define WINDOW_WIDTH 1280
