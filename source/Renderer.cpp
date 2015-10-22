@@ -103,9 +103,12 @@ void Renderer::Update(float dt)
 
         if ( glm::length( *m_objects[ i ]->GetPosition() - spawnOrigin ) > squareRadius) //~root(spawnPointDistance^2 + spawnPointDistance^2)
         {
-            mTexturesToBeDeleted.push_back( gResourceManager.DeleteTexture( m_objects[ i ]->GetTexture() ) );
+            if ( m_objects[ i ]->GetTexture() == 0 )
+                mDeletedObjectsTextures.push_back( m_objects[ i ]->GetFutureTexture() );
+            else
+                mTexturesToBeDeleted.push_back( gResourceManager.DeleteTexture( m_objects[ i ]->GetTexture() ) );
 			pDelete(m_objectsHandle, m_objects[ i ]);
-			m_objects.erase( m_objects.begin() + i ); 
+			m_objects.erase( m_objects.begin() + i );
         }
     }
 	if (m_objects.size() < MAX_OBJECTS)
@@ -119,6 +122,15 @@ void Renderer::Update(float dt)
 			m_objects.push_back(pNew(m_objectsHandle, AssetObject, (spawnOrigin + vec3(x, 0.0f, z)), ((rand() % 50) * 0.01f + 0.2f), "../assets/pettson.png", "diamond.mesh"));
 		}
 	}
+
+    for ( int i = mDeletedObjectsTextures.size() - 1; i >= 0; --i )
+    {
+        if ( mDeletedObjectsTextures[ i ]._Is_ready() )
+        {
+            mTexturesToBeDeleted.push_back( gResourceManager.DeleteTexture( mDeletedObjectsTextures[ i ].get() ) );
+            mDeletedObjectsTextures.erase( mDeletedObjectsTextures.begin() + i );
+        }
+    }
 
     for ( int i = mTexturesToBeDeleted.size() - 1; i >= 0; --i )
     {

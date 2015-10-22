@@ -20,6 +20,7 @@ public:
 
     void UpdateTexture();
     const GLuint GetTexture() const;
+    std::future<GLuint> GetFutureTexture() { return std::move( m_futureTexture ); }
 
 protected:
 	vec3 m_position;
