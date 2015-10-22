@@ -104,8 +104,8 @@ void Renderer::Update(float dt)
         if ( glm::length( *m_objects[ i ]->GetPosition() - spawnOrigin ) > squareRadius) //~root(spawnPointDistance^2 + spawnPointDistance^2)
         {
             mTexturesToBeDeleted.push_back( gResourceManager.DeleteTexture( m_objects[ i ]->GetTexture() ) );
-            pDelete(m_objectsHandle, m_objects[ i ]);
-            m_objects.erase( m_objects.begin() + i );
+			pDelete(m_objectsHandle, m_objects[ i ]);
+			m_objects.erase( m_objects.begin() + i ); 
         }
     }
 	if (m_objects.size() < MAX_OBJECTS)

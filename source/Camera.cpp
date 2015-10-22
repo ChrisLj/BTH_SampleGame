@@ -11,7 +11,7 @@ Camera::Camera(int windowWidth, int windowHeight)
 	m_camPitch = 0.0f;
 	m_camYaw = M_PI;
 	m_sensitivity = 0.002f;
-	m_moveSpeed = 0.015f;
+	m_moveSpeed = 0.035f;
 
 	m_farPlane = 100.f;
 

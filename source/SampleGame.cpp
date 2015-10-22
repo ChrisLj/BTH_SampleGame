@@ -99,7 +99,7 @@ int main(int argc, char* argv[])
 		start = end;
 		dt = duration * 0.000001f;
 
-		if (dt > 16.6f)
+		if (dt > 30.0f)
 			SDL_Log("dt = %f ms", dt);
 
 		CheckInput(dt);
