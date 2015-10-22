@@ -49,6 +49,7 @@ private:
 	char m_objectsHandle;
 	std::vector<WorldObject*> m_objects; //custom allocator here?
 	DirectionalLight m_dirLight;
+    std::vector<std::future<GLuint>> mDeletedObjectsTextures;
     std::vector<std::future<void>> mTexturesToBeDeleted;
 
 public:
