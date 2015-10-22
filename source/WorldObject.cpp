@@ -42,6 +42,8 @@ WorldObject::WorldObject(vec3 pos, float scale, const char* textureFilepath )
 
 WorldObject::~WorldObject()
 {
+	glDeleteVertexArrays(1, &m_VAO);
+	glDeleteBuffers(3, m_buffers);
 }
 
 void WorldObject::UpdateTexture()

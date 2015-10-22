@@ -1,20 +1,17 @@
 #include "stdafx.h"
 #include "AssetObject.h"
-#include "ObjParser.h"
+#include "ResourceManager.h"
 
-AssetObject::AssetObject(vec3 pos, float scale, const char* textureFilepath) : WorldObject(pos, scale, textureFilepath)
+extern ResourceManager gResourceManager;
+
+AssetObject::AssetObject(vec3 pos, float scale, const char* textureFilepath, const char* modelFile) : WorldObject(pos, scale, textureFilepath)
 {
-	ObjParser m_parser;
-	if (!m_parser.Load("C://Users/Chris/Documents/Skola/BTH_SampleGame/assets/cube.obj")) 
-	{
-		printf("FILE NOT LOADED! \n");
-	}
+	ModelFileParser* modelData = gResourceManager.LoadModel(modelFile);
+	m_nrOfVertices = modelData->GetVertexCount();
 
-	m_nrOfVertices = m_parser.GetVertexCount();
-
-	float* vertices		= m_parser.GetVertexDataPtr();
-	float* normals		= m_parser.GetNormalDataPtr();
-	float* texCoords	= m_parser.GetTexCoordDataPtr();
+	float* vertices		= modelData->GetVertexDataPtr();
+	float* normals		= modelData->GetNormalDataPtr();
+	float* texCoords	= modelData->GetTexCoordDataPtr();
 
 	glBindVertexArray(m_VAO);
 
@@ -32,6 +29,8 @@ AssetObject::AssetObject(vec3 pos, float scale, const char* textureFilepath) : W
 	glBufferData(GL_ARRAY_BUFFER, m_nrOfVertices * 2 * sizeof(GLfloat), texCoords, GL_STATIC_DRAW);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(2);
+
+	gResourceManager.FreeModelData(modelData);
 }
 
 
