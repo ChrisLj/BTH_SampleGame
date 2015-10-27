@@ -35,7 +35,11 @@ include_directories(
 	"${CMAKE_CURRENT_SOURCE_DIR}/../BTH_Resource_Manager/src/resourcemanager/interface"
 )
 
-link_directories("${CMAKE_CURRENT_SOURCE_DIR}/../externals/lib/x64")
+if(${CMAKE_GENERATOR} STREQUAL "Visual Studio 14 2015 Win64")
+	link_directories("${CMAKE_CURRENT_SOURCE_DIR}/../externals/lib/x64")
+elseif(${CMAKE_GENERATOR} STREQUAL "Visual Studio 14 2015")
+	link_directories("${CMAKE_CURRENT_SOURCE_DIR}/../externals/lib/x86")
+endif()
 
 add_executable(BTH_SampleGame ${SOURCES})
 
@@ -51,7 +55,14 @@ target_link_libraries(BTH_SampleGame
 					  MemoryAllocator
 					  ResourceManager)
 
-add_custom_command(TARGET BTH_SampleGame POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_directory
-		"${CMAKE_CURRENT_SOURCE_DIR}/../externals/lib/x64"
-		$<TARGET_FILE_DIR:BTH_SampleGame>)
+if(${CMAKE_GENERATOR} STREQUAL "Visual Studio 14 2015 Win64")
+	add_custom_command(TARGET BTH_SampleGame POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_directory
+			"${CMAKE_CURRENT_SOURCE_DIR}/../externals/lib/x64"
+			$<TARGET_FILE_DIR:BTH_SampleGame>)
+elseif(${CMAKE_GENERATOR} STREQUAL "Visual Studio 14 2015")
+	add_custom_command(TARGET BTH_SampleGame POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_directory
+			"${CMAKE_CURRENT_SOURCE_DIR}/../externals/lib/x86"
+			$<TARGET_FILE_DIR:BTH_SampleGame>)
+endif()
