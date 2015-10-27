@@ -20,6 +20,11 @@ bool Renderer::Init()
 {
 	SDL_Init(SDL_INIT_VIDEO);
 
+    // Share context
+    SDL_GL_SetAttribute( SDL_GL_SHARE_WITH_CURRENT_CONTEXT, 1 );
+    SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
+
 	m_window = SDL_CreateWindow(
 		"An SDL2 window",                  // window title
 		SDL_WINDOWPOS_UNDEFINED,           // initial x position
@@ -28,9 +33,6 @@ bool Renderer::Init()
 		WINDOW_HEIGHT,                               // height, in pixels
 		SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE       // flags - see below
 		);
-
-    // Share context
-    SDL_GL_SetAttribute( SDL_GL_SHARE_WITH_CURRENT_CONTEXT, 1 );
 
 	if (m_window == NULL)
 	{
