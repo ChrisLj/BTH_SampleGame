@@ -123,11 +123,11 @@ void Renderer::Update(float dt)
 
             float distanceFromCamera = glm::length( *m_objects[ i ]->GetPosition() - *camPos );
             if ( distanceFromCamera <= HIGHRES_DISTANCE )
-                m_objects[ i ]->LoadTexture( "../assets/highres.png", 2 );
+                m_objects[ i ]->LoadTexture( "highres.png", 2 );
             else if ( distanceFromCamera <= MEDIUMRES_DISTANCE )
-                m_objects[ i ]->LoadTexture( "../assets/mediumres.png", 1 );
+                m_objects[ i ]->LoadTexture( "mediumres.png", 1 );
             else if ( distanceFromCamera <= LOWRES_DISTANCE )
-                m_objects[ i ]->LoadTexture( "../assets/lowres.png", 0 );
+                m_objects[ i ]->LoadTexture( "lowres.png", 0 );
         }
 
     }
@@ -139,7 +139,7 @@ void Renderer::Update(float dt)
 		{
 			float x = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
 			float z = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
-			m_objects.push_back(pNew(m_objectsHandle, AssetObject, (spawnOrigin + vec3(x, 0.0f, z)), ((rand() % 50) * 0.01f + 0.2f), "../assets/lowres.png", "../assets/diamond.obj"));
+			m_objects.push_back(pNew(m_objectsHandle, AssetObject, (spawnOrigin + vec3(x, 0.0f, z)), ((rand() % 50) * 0.01f + 0.2f), "lowres.png", "diamond.obj"));
 		}
 	}
 
