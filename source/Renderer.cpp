@@ -119,7 +119,7 @@ void Renderer::Update(float dt)
 		{
 			float x = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
 			float z = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
-			m_objects.push_back(pNew(m_objectsHandle, AssetObject, (spawnOrigin + vec3(x, 0.0f, z)), ((rand() % 50) * 0.01f + 0.2f), "../assets/pettson.png", "diamond.mesh"));
+			m_objects.push_back(pNew(m_objectsHandle, AssetObject, (spawnOrigin + vec3(x, 0.0f, z)), ((rand() % 50) * 0.01f + 0.2f), "../assets/pettson.png", "diamond.obj"));
 		}
 	}
 
