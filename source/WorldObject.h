@@ -18,9 +18,11 @@ public:
 
 	virtual void Draw(mat4* viewMatrix, mat4* projMatrix, Shader* shader) = 0;
 
-    void UpdateTexture();
+    void LoadTexture( const char* textureFilepath, int textureLOD );
+    GLuint UpdateTexture();
     const GLuint GetTexture() const;
     std::future<GLuint> GetFutureTexture() { return std::move( m_futureTexture ); }
+    int GetTextureLOD() const { return m_textureLOD; }
 
 protected:
 	vec3 m_position;
@@ -35,6 +37,8 @@ protected:
 
 	GLuint m_texture;
     std::future<GLuint> m_futureTexture;
+    bool m_loadingTexture;
+    int m_textureLOD;
 };
 
 #endif

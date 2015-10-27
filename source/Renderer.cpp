@@ -93,6 +93,8 @@ void Renderer::CreateStuff()
 float spawnPointDistance = 30.f;
 float squareRadius = std::sqrt(spawnPointDistance*spawnPointDistance + spawnPointDistance*spawnPointDistance);
 
+
+
 void Renderer::Update(float dt)
 {
 	vec3* camPos = m_camera->GetPos();
@@ -100,8 +102,9 @@ void Renderer::Update(float dt)
 
     for ( int i = m_objects.size() - 1; i >= 0; i-- )
     {
-        if ( m_objects[ i ]->GetTexture() == 0 )
-            m_objects[ i ]->UpdateTexture();
+        GLuint textureToBeRemoved = m_objects[ i ]->UpdateTexture();
+        if ( textureToBeRemoved != 0 )
+            mTexturesToBeDeleted.push_back( gResourceManager.DeleteTexture( textureToBeRemoved ) );
 
         if ( glm::length( *m_objects[ i ]->GetPosition() - spawnOrigin ) > squareRadius) //~root(spawnPointDistance^2 + spawnPointDistance^2)
         {
@@ -112,6 +115,21 @@ void Renderer::Update(float dt)
 			pDelete(m_objectsHandle, m_objects[ i ]);
 			m_objects.erase( m_objects.begin() + i );
         }
+        else
+        {
+            const float HIGHRES_DISTANCE = 8.0f;
+            const float MEDIUMRES_DISTANCE = 32.0f;
+            const float LOWRES_DISTANCE = 64.0f;
+
+            float distanceFromCamera = glm::length( *m_objects[ i ]->GetPosition() - *camPos );
+            if ( distanceFromCamera <= HIGHRES_DISTANCE )
+                m_objects[ i ]->LoadTexture( "../assets/highres.png", 2 );
+            else if ( distanceFromCamera <= MEDIUMRES_DISTANCE )
+                m_objects[ i ]->LoadTexture( "../assets/mediumres.png", 1 );
+            else if ( distanceFromCamera <= LOWRES_DISTANCE )
+                m_objects[ i ]->LoadTexture( "../assets/lowres.png", 0 );
+        }
+
     }
 	if (m_objects.size() < MAX_OBJECTS)
 	{
@@ -121,7 +139,7 @@ void Renderer::Update(float dt)
 		{
 			float x = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
 			float z = (rand() % (int)(spawnPointDistance*20)) * 0.1f - spawnPointDistance;
-			m_objects.push_back(pNew(m_objectsHandle, AssetObject, (spawnOrigin + vec3(x, 0.0f, z)), ((rand() % 50) * 0.01f + 0.2f), "../assets/pettson.png", "diamond.obj"));
+			m_objects.push_back(pNew(m_objectsHandle, AssetObject, (spawnOrigin + vec3(x, 0.0f, z)), ((rand() % 50) * 0.01f + 0.2f), "../assets/lowres.png", "diamond.obj"));
 		}
 	}
 
