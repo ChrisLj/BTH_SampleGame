@@ -57,6 +57,8 @@ bool Renderer::Init()
 	srand(time(NULL));
 	m_objectsHandle = InitializePoolAllocator(sizeof(AssetObject), MAX_OBJECTS, POOL_ALLOCATOR_DEFAULT_ALIGNMENT);
 
+    SDL_GL_SetSwapInterval( 0 );
+
 	return true;
 }
 

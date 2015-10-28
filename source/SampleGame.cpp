@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
 	m_renderer.Init();
 	m_renderer.CreateShaders();
 
-    gResourceManager.StartUp( m_renderer.GetWindow(), "../assets/assets.paca" );
+    gResourceManager.StartUp( m_renderer.GetWindow(), 4, "../assets/assets.paca" );
     SDL_GL_MakeCurrent( m_renderer.GetWindow(), m_renderer.GetContext() );
 
 	m_renderer.CreateStuff(); //Tmp. Some post init-stuff
