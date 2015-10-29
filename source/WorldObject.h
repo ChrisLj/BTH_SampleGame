@@ -20,7 +20,7 @@ public:
 
     void UpdateTexture();
     const GLuint GetTexture() const;
-    std::future<GLuint> GetFutureTexture() { return std::move( m_futureTexture ); }
+    std::future<GLuint> GetFutureTexture();
 
 protected:
 	vec3 m_position;
@@ -34,7 +34,7 @@ protected:
 	unsigned int m_nrOfVertices;
 
 	GLuint m_texture;
-    std::future<GLuint> m_futureTexture;
+	struct TextureResource *m_textureResource;
 };
 
 #endif

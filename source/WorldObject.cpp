@@ -14,7 +14,7 @@ WorldObject::WorldObject(vec3 pos, float scale, const char* textureFilepath )
 	m_modelMatrix = glm::rotate(m_modelMatrix, 0.0f, vec3(0.0f, 1.0f, 0.0f));
 	m_modelMatrix = glm::scale(m_modelMatrix, vec3(m_scale, m_scale, m_scale));
 	
-    m_futureTexture = gResourceManager.LoadTexture( textureFilepath );
+	m_textureResource = gResourceManager.LoadTexture( textureFilepath );
 
 	/*if (m_texture == 0)
 	{
@@ -48,9 +48,9 @@ WorldObject::~WorldObject()
 
 void WorldObject::UpdateTexture()
 {
-    if ( m_futureTexture._Is_ready() )
+    if (m_textureResource->isReady() )
     {
-        m_texture = m_futureTexture.get();
+        m_texture = m_textureResource->get();
         assert( m_texture != 0 );
     }
 }
@@ -58,4 +58,9 @@ void WorldObject::UpdateTexture()
 const GLuint WorldObject::GetTexture() const
 {
     return m_texture;
+}
+
+std::future<GLuint> WorldObject::GetFutureTexture() 
+{ 
+	return std::move(m_textureResource->future); 
 }

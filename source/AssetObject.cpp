@@ -30,7 +30,7 @@ AssetObject::AssetObject(vec3 pos, float scale, const char* textureFilepath, con
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(2);
 
-	//gResourceManager.FreeModelData(modelData);
+	gResourceManager.FreeModelData(modelData);
 }
 
 
