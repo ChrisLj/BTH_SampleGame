@@ -8,13 +8,15 @@ WorldObject::WorldObject(vec3 pos, float scale, const char* textureFilepath )
 {
 	m_position = pos;
 	m_scale = scale;
-	m_texture = 0;
 	m_modelMatrix = mat4(1.0f);
 	m_modelMatrix = glm::translate(m_modelMatrix, pos);
 	m_modelMatrix = glm::rotate(m_modelMatrix, 0.0f, vec3(0.0f, 1.0f, 0.0f));
 	m_modelMatrix = glm::scale(m_modelMatrix, vec3(m_scale, m_scale, m_scale));
 	
-	m_textureResource = gResourceManager.LoadTexture( textureFilepath );
+    m_texture = 0;
+    m_loadingTexture = false;
+    m_textureLOD = 1;
+    LoadTexture( textureFilepath, 0 );
 
 	/*if (m_texture == 0)
 	{
@@ -46,13 +48,27 @@ WorldObject::~WorldObject()
 	glDeleteBuffers(3, m_buffers);
 }
 
-void WorldObject::UpdateTexture()
+void WorldObject::LoadTexture( const char* textureFilepath, int textureLOD )
 {
-    if (m_textureResource->isReady() )
+    if ( !m_loadingTexture && m_textureLOD != textureLOD )
     {
+		m_textureResource = gResourceManager.LoadTexture(textureFilepath);
+        m_loadingTexture = true;
+        m_textureLOD = textureLOD;
+    }
+}
+
+GLuint WorldObject::UpdateTexture()
+{
+    if ( m_loadingTexture && m_textureResource->isReady() )
+    {
+        GLuint prevTexture = m_texture;
         m_texture = m_textureResource->get();
         assert( m_texture != 0 );
+        m_loadingTexture = false;
+        return prevTexture;
     }
+    return 0;
 }
 
 const GLuint WorldObject::GetTexture() const
