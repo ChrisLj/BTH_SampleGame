@@ -21,7 +21,8 @@ public:
     void LoadTexture( const char* textureFilepath, int textureLOD );
     GLuint UpdateTexture();
     const GLuint GetTexture() const;
-    std::future<GLuint> GetFutureTexture() { return std::move( m_futureTexture ); }
+
+    std::future<GLuint> GetFutureTexture();
     int GetTextureLOD() const { return m_textureLOD; }
 
 protected:
@@ -36,7 +37,9 @@ protected:
 	unsigned int m_nrOfVertices;
 
 	GLuint m_texture;
-    std::future<GLuint> m_futureTexture;
+
+	struct TextureResource *m_textureResource;
+
     bool m_loadingTexture;
     int m_textureLOD;
 };

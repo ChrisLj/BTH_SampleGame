@@ -52,7 +52,7 @@ void WorldObject::LoadTexture( const char* textureFilepath, int textureLOD )
 {
     if ( !m_loadingTexture && m_textureLOD != textureLOD )
     {
-        m_futureTexture = gResourceManager.LoadTexture( textureFilepath );
+		m_textureResource = gResourceManager.LoadTexture(textureFilepath);
         m_loadingTexture = true;
         m_textureLOD = textureLOD;
     }
@@ -60,10 +60,10 @@ void WorldObject::LoadTexture( const char* textureFilepath, int textureLOD )
 
 GLuint WorldObject::UpdateTexture()
 {
-    if ( m_loadingTexture && m_futureTexture._Is_ready() )
+    if ( m_loadingTexture && m_textureResource->isReady() )
     {
         GLuint prevTexture = m_texture;
-        m_texture = m_futureTexture.get();
+        m_texture = m_textureResource->get();
         assert( m_texture != 0 );
         m_loadingTexture = false;
         return prevTexture;
@@ -74,4 +74,9 @@ GLuint WorldObject::UpdateTexture()
 const GLuint WorldObject::GetTexture() const
 {
     return m_texture;
+}
+
+std::future<GLuint> WorldObject::GetFutureTexture() 
+{ 
+	return std::move(m_textureResource->future); 
 }

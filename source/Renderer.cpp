@@ -105,15 +105,15 @@ void Renderer::Update(float dt)
     for ( int i = m_objects.size() - 1; i >= 0; i-- )
     {
         GLuint textureToBeRemoved = m_objects[ i ]->UpdateTexture();
-        if ( textureToBeRemoved != 0 )
-            mTexturesToBeDeleted.push_back( gResourceManager.DeleteTexture( textureToBeRemoved ) );
+        /*if ( textureToBeRemoved != 0 )
+            mTexturesToBeDeleted.push_back( gResourceManager.DeleteTexture( textureToBeRemoved ) );*/
 
         if ( glm::length( *m_objects[ i ]->GetPosition() - spawnOrigin ) > squareRadius) //~root(spawnPointDistance^2 + spawnPointDistance^2)
         {
-            if ( m_objects[ i ]->GetTexture() == 0 )
+            /*if ( m_objects[ i ]->GetTexture() == 0 )
                 mDeletedObjectsTextures.push_back( m_objects[ i ]->GetFutureTexture() );
-            else
-                mTexturesToBeDeleted.push_back( gResourceManager.DeleteTexture( m_objects[ i ]->GetTexture() ) );
+			else
+                mTexturesToBeDeleted.push_back( gResourceManager.DeleteTexture( m_objects[ i ]->GetTexture() ) );*/
 			pDelete(m_objectsHandle, m_objects[ i ]);
 			m_objects.erase( m_objects.begin() + i );
         }
@@ -153,7 +153,7 @@ void Renderer::Update(float dt)
             mDeletedObjectsTextures.erase( mDeletedObjectsTextures.begin() + i );
         }
     }
-
+	
     for ( int i = mTexturesToBeDeleted.size() - 1; i >= 0; --i )
     {
         if ( mTexturesToBeDeleted[ i ]._Is_ready() )
