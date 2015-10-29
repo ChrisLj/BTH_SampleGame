@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Renderer.h"
+#include "SoundEngine.h"
 #include <chrono>
 #include <future>
 
@@ -11,12 +12,14 @@ ResourceManager gResourceManager;
 SDL_Event m_event;
 //Renderer m_renderer;
 Camera m_camera;
+SoundEngine m_soundEngine;
 bool m_running;
 
 bool wPressed = false;
 bool sPressed = false;
 bool aPressed = false;
 bool dPressed = false;
+bool tPressed = false;
 
 void CheckInput(float dt)
 {
@@ -49,6 +52,9 @@ void CheckInput(float dt)
 				aPressed = false;
 			else if (m_event.key.keysym.sym == SDLK_d)
 				dPressed = false;
+
+			if (m_event.key.keysym.sym == SDLK_t)
+				m_soundEngine.AddSound("swish.wav");
 		break;
 	}
 
@@ -66,11 +72,13 @@ void CheckInput(float dt)
 int main(int argc, char* argv[])
 {
 	m_camera = Camera(WINDOW_WIDTH, WINDOW_HEIGHT);
+	m_soundEngine.Init();
 	Renderer m_renderer = Renderer(&m_camera);
+	
 	m_renderer.Init();
 	m_renderer.CreateShaders();
 
-    gResourceManager.StartUp( m_renderer.GetWindow(), 4, "../assets/assets.paca" );
+    gResourceManager.StartUp( m_renderer.GetWindow(), 4, "../assets/dip.zip" );
     SDL_GL_MakeCurrent( m_renderer.GetWindow(), m_renderer.GetContext() );
 
 	m_renderer.CreateStuff(); //Tmp. Some post init-stuff
@@ -104,12 +112,16 @@ int main(int argc, char* argv[])
 
 		CheckInput(dt);
 		m_renderer.Update(dt);
+		m_soundEngine.Update(dt);
+
 		m_renderer.Render();
 	}
 
     gResourceManager.ShutDown();
 
 	m_renderer.Clean();
+	m_soundEngine.Clean();
+
 	return 0;
 }
 
