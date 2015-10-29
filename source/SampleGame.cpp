@@ -37,6 +37,11 @@ void CheckInput(float dt)
 			else if (m_event.key.keysym.sym == SDLK_d)
 				dPressed = true;
 
+			if (m_event.key.keysym.sym == SDLK_KP_PLUS)
+				m_soundEngine.ChangeVolume(0.1f);
+			else if (m_event.key.keysym.sym == SDLK_KP_MINUS)
+				m_soundEngine.ChangeVolume(-0.1f);
+
 			if (m_event.key.keysym.sym == SDLK_ESCAPE)
 			{
 				m_running = false;
@@ -52,9 +57,6 @@ void CheckInput(float dt)
 				aPressed = false;
 			else if (m_event.key.keysym.sym == SDLK_d)
 				dPressed = false;
-
-			if (m_event.key.keysym.sym == SDLK_t)
-				m_soundEngine.AddSound("swish.wav");
 		break;
 	}
 

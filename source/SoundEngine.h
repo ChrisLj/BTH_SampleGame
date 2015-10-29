@@ -11,15 +11,15 @@ class SoundEngine
 {
 private:
 	FMOD::System*	m_system;
-	FMOD::Sound*	m_sound;
 	FMOD::Channel*	m_channel;
-	char m_soundsHandle;
 	std::vector<Sound*> m_sounds;
+	std::vector<const char*> m_soundFiles;
 
+	bool m_muted;
+	char m_soundsHandle;
 	float m_delay;
 	float m_currDelay;
-
-	//std::future<unsigned char*> m_sounds; //custom allocator here?
+	float m_volume;
 
 public:
 	SoundEngine() {};
@@ -29,6 +29,7 @@ public:
 	bool Clean();
 	void Update(float dt);
 	void AddSound(const char* _filePath);
+	void ChangeVolume(float _value);
 
 };
 

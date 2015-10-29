@@ -25,7 +25,6 @@ void Sound::UpdateSound(float dt)
 	{
 		m_fSound = static_cast<FMOD::Sound*>(m_soundChunk.get());
 		m_soundState = SOUND_PLAY_STATE::READY;
-
 		unsigned int tmp = 0;
 		m_fSound->getLength(&tmp, FMOD_TIMEUNIT_MS);
 		m_totTime = tmp;
@@ -33,7 +32,7 @@ void Sound::UpdateSound(float dt)
 	else if (m_soundState == SOUND_PLAY_STATE::PLAYING && m_soundChunk._Is_ready())
 	{
 		m_currTime += dt;
-		if (m_currTime >= m_totTime+100) // Give it some extra time
+		if (m_currTime >= m_totTime) // Give it some extra time
 			m_soundState = SOUND_PLAY_STATE::FINISHED;
 	}
 }
