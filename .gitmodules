@@ -3,4 +3,4 @@
 	url = https://github.com/MonzUn/BTH_Memory_Allocator.git
 [submodule "BTH_Resource_Manager"]
 	path = BTH_Resource_Manager
-	url = https://github.com/MonzUn/BTH_Resource_Manager.git.pettsontest
+	url = https://github.com/MonzUn/BTH_Resource_Manager.git
